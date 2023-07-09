@@ -13,7 +13,7 @@
 using namespace std;
 using namespace sdds;
 
-//void showOrder(const unsigned int* cnt, const Menu& M);
+void showOrder(const unsigned int* cnt, const Menu& M);
 int main() {
    unsigned int selections[3]{};
    //unsigned int s;
@@ -24,29 +24,29 @@ int main() {
    else {
       cout << "The >" << m2 << "< menu is empty" << endl;
    }
-   //m1 << "Omelet" << "Tuna Sandwich" << "California Roll";
-   //m2 << "Order more";
-   //if (m1) {
-   //   cout << "The " << m1 << " is not empty and has " << (unsigned int)(m1) << " menu items." << endl;
-   //}
-   //do {
-   //   s = m1.run();
-   //   if (s) {
-   //      selections[s - 1]++;
-   //      cout << "you chose " << m1[s - 1] << endl;
-   //   }
-   //} while (s != 0 || ~m2 != 0);
-   //showOrder(selections, m1);
+   m1 << "Omelet" << "Tuna Sandwich" << "California Roll";
+   m2 << "Order more";
+   if (m1) {
+      cout << "The " << m1 << " is not empty and has " << (unsigned int)(m1) << " menu items." << endl;
+   }
+   do {
+      s = m1.run();
+      if (s) {
+         selections[s - 1]++;
+         cout << "you chose " << m1[s - 1] << endl;
+      }
+   } while (s != 0 || ~m2 != 0);
+   showOrder(selections, m1);
    return 0;
 }
-//void showOrder(const unsigned int* cnt, const Menu& M) {
-//   bool orderedSomthing = false;
-//   cout << "Your orders: " << endl;
-//   for (int i = 0; i < 3; i++) {
-//      if (cnt[i]) {
-//         orderedSomthing = true;
-//         cout << cnt[i] << " " << M[i] << (cnt[i] > 1 ? "s" : "") << endl;
-//      }
-//   }
-//   if (!orderedSomthing) cout << "You didn't order anything!" << endl;
-//}
+void showOrder(const unsigned int* cnt, const Menu& M) {
+   bool orderedSomthing = false;
+   cout << "Your orders: " << endl;
+   for (int i = 0; i < 3; i++) {
+      if (cnt[i]) {
+         orderedSomthing = true;
+         cout << cnt[i] << " " << M[i] << (cnt[i] > 1 ? "s" : "") << endl;
+      }
+   }
+   if (!orderedSomthing) cout << "You didn't order anything!" << endl;
+}

@@ -114,6 +114,21 @@ namespace sdds {
         }
         return *this;
     }
+    Menu::operator int()const {
+        return noOfItems;
+    }
+    Menu::operator unsigned int()const {
+        return noOfItems;
+    }
+    Menu::operator bool() const {
+        return (noOfItems > 0);
+    }
+    Menu::operator const char* () const {
 
+    }
+
+    ostream& Menu::operator<<(ostream& os) const {
+
+    }
 
 }
