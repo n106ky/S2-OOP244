@@ -1,0 +1,11 @@
+﻿  Menu.cpp
+  menuTester.cpp
+C:\Users\Nicole Chan\Desktop\Seneca-Summer-2023\OOP244\MS01\ms01\menuTester.cpp(25,12): error C2593: 'operator <<' is ambiguous
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\ostream(298,39): message : could be 'std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(unsigned int)'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\ostream(272,39): message : or       'std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(int)'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\ostream(201,39): message : or       'std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(bool)'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\ostream(761,31): message : or       'std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const char *)'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\ostream(681,32): message : or       'std::basic_ostream<char,std::char_traits<char>> &std::operator <<<char,std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const char *)'
+C:\Users\Nicole Chan\Desktop\Seneca-Summer-2023\OOP244\MS01\ms01\menuTester.cpp(25,12): message : while trying to match the argument list '(std::basic_ostream<char,std::char_traits<char>>, sdds::Menu)'
+  Generating Code...
+C:\Users\Nicole Chan\Desktop\Seneca-Summer-2023\OOP244\MS01\ms01\Menu.cpp(97): error C4700: uninitialized local variable 'select' used
