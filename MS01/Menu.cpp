@@ -39,7 +39,7 @@ namespace sdds {
     MenuItem::~MenuItem() {
         delete[] m_content;
         m_content = nullptr;
-        cout << "MenuItem is dying... " << endl;
+        //cout << "MenuItem is dying... " << endl;
     }
     MenuItem::operator bool() const {
         return m_content;
@@ -55,22 +55,20 @@ namespace sdds {
         return os;
     }
 
-    // MENU:
-    //void Menu::setMenuEmpty() {
-    //    mI = nullptr;
-    //}
+
     Menu::Menu() {
-        cout << "Creating an empty constructor" << endl;
+        //cout << "Creating an empty constructor" << endl;
     };
     Menu::Menu(const char* title): m_menuTitle{ title } {
-        cout << "Creating an constructor with title: "  << m_menuTitle << endl; // HOW COME MENU TITLE IS 1 (goes into bool but not const char*)
+        // cout << "Creating an constructor with title: "  << m_menuTitle << endl; 
+        // HOW COME MENU TITLE IS 1 (goes into bool but not const char*)
     }
 
     Menu::~Menu() {
         for (unsigned int i = 0; i < MAX_MENU_ITEMS; i++) { // MAX_MENU_ITEMS should be an countable value
             delete mI[i];
         }
-        cout << "mI is dying... " << endl;
+        // cout << "mI is dying... " << endl;
     }
     ostream& Menu::titleDisplay(ostream& os)const {
         if (m_menuTitle) {
@@ -79,20 +77,22 @@ namespace sdds {
         return os;
     }
     ostream& Menu::menuDisplay(ostream& os)const {
-        titleDisplay(os);
+        titleDisplay(os); // NOT SURE
         os << ':' << endl;
         for (unsigned int i = 0; i < noOfItems; i++) {
-            os << i + 1 << '- ';
+            os << setw(2) << right << i + 1 << "- "; // NOT SURE
             mI[i]->display(os);
             os << endl;
         }
+        os << "0- Exit" << endl << '>';
 
         return os;
     }
     unsigned int Menu::run() {
-        unsigned int select;
+        int maxNumber = noOfItems;
+        unsigned int select = getValidSelect(0, maxNumber);
         // menuDisplay();
-        // getValidSelect(); 
+
 
         return select;
     }
@@ -124,11 +124,11 @@ namespace sdds {
         return (noOfItems > 0);
     }
     Menu::operator const char* () const {
-
+        return "x";
     }
 
-    ostream& Menu::operator<<(ostream& os) const {
-
+    ostream& operator<<(ostream& os, Menu& m) {
+        return os;
     }
 
 }

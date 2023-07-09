@@ -18,7 +18,6 @@ using namespace std;
 namespace sdds {
 
 	// CSTRING LIBRARY
-
 	void strCpy(char* des, const char* src)
 	{
 		int i = 0;
@@ -47,5 +46,20 @@ namespace sdds {
 			des[i + len] = src[i];
 		}
 		des[i + len] = '\0';
+	}
+
+	int getValidSelect(int min, int max) {
+		int input;
+		bool isValid = false;
+		while (isValid==false) {
+			cin >> input;
+			if (!(cin>>input) || input < min || input > max) {
+				cout << "Invalid Selection, try again:";
+			}
+			else {
+				isValid = true;
+			}
+		}
+		return input;
 	}
 }

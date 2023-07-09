@@ -16,7 +16,7 @@ using namespace sdds;
 void showOrder(const unsigned int* cnt, const Menu& M);
 int main() {
    unsigned int selections[3]{};
-   //unsigned int s;
+   unsigned int s;
    Menu m1("Lunch Menu"), m2;
    if (m2) {
       cout << "Wrong output, your bool cast is done incorrenctly!";
@@ -29,13 +29,13 @@ int main() {
    if (m1) {
       cout << "The " << m1 << " is not empty and has " << (unsigned int)(m1) << " menu items." << endl;
    }
-   do {
-      s = m1.run();
-      if (s) {
-         selections[s - 1]++;
-         cout << "you chose " << m1[s - 1] << endl;
-      }
-   } while (s != 0 || ~m2 != 0);
+   //do {
+   //   s = m1.run();
+   //   if (s) {
+   //      selections[s - 1]++;
+   //      cout << "you chose " << m1[s - 1] << endl;
+   //   }
+   //} while (s != 0 || ~m2 != 0);
    showOrder(selections, m1);
    return 0;
 }

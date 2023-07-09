@@ -16,7 +16,6 @@
 
 namespace sdds {
     const unsigned int MAX_MENU_ITEMS = 20;
-    unsigned int noOfItems = 0;
 
     class MenuItem { 
         // FULLY PRIVATE CLASS
@@ -44,7 +43,7 @@ namespace sdds {
     class Menu {
         MenuItem m_menuTitle{};
         MenuItem* mI[MAX_MENU_ITEMS]{};
-
+        unsigned int noOfItems = 0;
     public:
         Menu();
         Menu(const char* title);
@@ -68,8 +67,9 @@ namespace sdds {
         operator bool() const;
         operator const char* () const;
 
-        std::ostream& operator<<(std::ostream& os) const;
+       
     };
+    std::ostream& operator<<(std::ostream& os, Menu& m);
 
 }
 #endif
