@@ -81,14 +81,17 @@ namespace sdds {
         return os;
     }
     ostream& Menu::menuDisplay(ostream& os) {
-        m_menuTitle.display(); 
-        os << ':' << endl;
+
+        m_menuTitle.display();
+        if (m_menuTitle) {
+            os << ':' << endl;
+        }
         for (unsigned int i = 0; i < noOfItems; i++) {
             os << setw(2) << right << i + 1 << "- "; // NOT SURE
             mI[i]->display(); // mI[i]->display(os);
             os << endl;
         }
-        os << setw(2) << right << "0" << "- Exit" << endl << '>';
+        os << setw(2) << right << "0" << "- Exit" << endl << "> ";
 
         return os;
     }
@@ -126,11 +129,11 @@ namespace sdds {
     }
     const char* Menu::operator[](unsigned int value)const {
         const char* items;
-        if (value % noOfItems <= 1) {
+        if (value <= noOfItems) {
             items = mI[value]->m_content;
         }
         else {
-            items = mI[0]->m_content;
+            items = mI[value % noOfItems == 0]->m_content;
         }
         return items;
     }
