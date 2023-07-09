@@ -100,7 +100,7 @@ namespace sdds {
         run();
         return *this;
     }
-    Menu& Menu::operator<<(const char* menuitemConent) { // Unlike ws4 it is receiving an int.  
+    Menu& Menu::operator<<(const char* menuitemConent) { // Unlike WS4 it was receiving an int.  
        
         if (noOfItems < MAX_MENU_ITEMS) {
             // Dynamically create a new MenuItem
