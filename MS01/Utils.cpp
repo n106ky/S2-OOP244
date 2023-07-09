@@ -48,6 +48,7 @@ namespace sdds {
 		des[i + len] = '\0';
 	}
 
+	// FOR MENU:
 	int getValidSelect(int min, int max) {
 		int input;
 		bool isValid = false;
@@ -55,6 +56,8 @@ namespace sdds {
 			cin >> input;
 			if (!(cin>>input) || input < min || input > max) {
 				cout << "Invalid Selection, try again:";
+				cin.clear();
+				cin.ignore(1024, '\n');
 			}
 			else {
 				isValid = true;

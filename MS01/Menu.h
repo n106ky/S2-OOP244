@@ -34,7 +34,7 @@ namespace sdds {
         operator bool() const;
         operator const char* () const;
 
-        std::ostream& display(std::ostream& os)const;
+        std::ostream& display(std::ostream& os = std::cout)const;
 
         // Only accessible by the Menu class
         friend class Menu;
@@ -54,20 +54,19 @@ namespace sdds {
         ~Menu();
 
         // DISPLAY
-        std::ostream& titleDisplay(std::ostream& os)const;
-        std::ostream& menuDisplay(std::ostream& os)const;
+        std::ostream& titleDisplay(std::ostream& os);
+        std::ostream& menuDisplay(std::ostream& os = std::cout);
 
         // This function displays the Menu and gets the user selection
         unsigned int run(); 
         Menu& operator~(); // Same as run
         Menu& operator<<(const char* menuitemConent); // add MenuItem to Menu
+        const char* operator[](unsigned int noOfItems);
 
         operator int()const;
         operator unsigned int()const;
         operator bool() const;
-        operator const char* () const;
 
-       
     };
     std::ostream& operator<<(std::ostream& os, Menu& m);
 

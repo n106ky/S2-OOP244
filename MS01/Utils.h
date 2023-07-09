@@ -16,9 +16,12 @@
 #define SDDS_UTILS_H__
 
 namespace sdds {
+	// CSTRING LIBRARY
 	void strCpy(char* des, const char* src);
 	int strLen(const char* s);
 	void strCat(char* des, const char* src);
+
+	// FOR MENU:
 	int getValidSelect(int min, int max);
 }
 #endif // SDDS_UTILS_H__

@@ -20,7 +20,8 @@
 using namespace std;
 namespace sdds {
 
-    // MENUITEM:
+    // ************************** MENUITEM FUNCTIONS ************************** // 
+
     void MenuItem::setItemEmpty() {
         m_content = nullptr;
     }
@@ -28,7 +29,7 @@ namespace sdds {
         setItemEmpty();
     }
     MenuItem::MenuItem(const char* content) {
-        if (content) {
+        if (content && content[0] != '\0') {
             m_content = new char[strLen(content) + 1];
             strCpy(m_content, content);
         }
@@ -39,10 +40,10 @@ namespace sdds {
     MenuItem::~MenuItem() {
         delete[] m_content;
         m_content = nullptr;
-        //cout << "MenuItem is dying... " << endl;
+        //cout << "deleting m_content" << endl;
     }
     MenuItem::operator bool() const {
-        return m_content;
+        return (m_content && m_content[0] != '\0'); // m_content;
     }
     MenuItem::operator const char* () const {
         return m_content;
@@ -55,10 +56,13 @@ namespace sdds {
         return os;
     }
 
+    // ************************** MENU FUNCTIONS ************************** // 
+
 
     Menu::Menu() {
         //cout << "Creating an empty constructor" << endl;
     };
+
     Menu::Menu(const char* title): m_menuTitle{ title } {
         // cout << "Creating an constructor with title: "  << m_menuTitle << endl; 
         // HOW COME MENU TITLE IS 1 (goes into bool but not const char*)
@@ -68,16 +72,16 @@ namespace sdds {
         for (unsigned int i = 0; i < MAX_MENU_ITEMS; i++) { // MAX_MENU_ITEMS should be an countable value
             delete mI[i];
         }
-        // cout << "mI is dying... " << endl;
+        // cout << "deleting mI" << endl;
     }
-    ostream& Menu::titleDisplay(ostream& os)const {
+    ostream& Menu::titleDisplay(ostream& os) {
         if (m_menuTitle) {
-            m_menuTitle.display(os); // NOT SURE
+            m_menuTitle.display(); // why I cannot do it like this? >> m_menuTitle.display(os);
         }
         return os;
     }
-    ostream& Menu::menuDisplay(ostream& os)const {
-        titleDisplay(os); // NOT SURE
+    ostream& Menu::menuDisplay(ostream& os) {
+        m_menuTitle.display(); // NOT SURE, SEE IF I CAN CHANGE THE DISPLAY
         os << ':' << endl;
         for (unsigned int i = 0; i < noOfItems; i++) {
             os << setw(2) << right << i + 1 << "- "; // NOT SURE
@@ -89,10 +93,8 @@ namespace sdds {
         return os;
     }
     unsigned int Menu::run() {
-        int maxNumber = noOfItems;
-        unsigned int select = getValidSelect(0, maxNumber);
-        // menuDisplay();
-
+        menuDisplay();
+        unsigned int select = getValidSelect(0, noOfItems);
 
         return select;
     }
@@ -123,12 +125,12 @@ namespace sdds {
     Menu::operator bool() const {
         return (noOfItems > 0);
     }
-    Menu::operator const char* () const {
-        return "x";
-    }
+    //const char* Menu::operator[](unsigned int noOfItems) {
+    //    return "x";
+    //}
 
     ostream& operator<<(ostream& os, Menu& m) {
-        return os;
+        return m.titleDisplay(os); // m1 title display goes here.
     }
 
 }

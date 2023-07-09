@@ -43,10 +43,10 @@ void showOrder(const unsigned int* cnt, const Menu& M) {
    bool orderedSomthing = false;
    cout << "Your orders: " << endl;
    for (int i = 0; i < 3; i++) {
-      if (cnt[i]) {
-         orderedSomthing = true;
-         cout << cnt[i] << " " << M[i] << (cnt[i] > 1 ? "s" : "") << endl;
-      }
+      //if (cnt[i]) {
+      //   orderedSomthing = true;
+      //   cout << cnt[i] << " " << M[i] << (cnt[i] > 1 ? "s" : "") << endl;
+      //}
    }
    if (!orderedSomthing) cout << "You didn't order anything!" << endl;
 }
