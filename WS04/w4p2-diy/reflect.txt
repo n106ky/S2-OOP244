@@ -1,0 +1,83 @@
++***************************+
+	OOP244 - WORKSHOP 4
+		Reflect			  	
++***************************+
+	KA YING, CHAN		  	
+	123231227			  	
+	kchan151@myseneca.ca	
+							
+	MOHAMMAD SHAMAS			
+	NEE		
+	
+	2023 JUNE 11
++===========================+
+
+
+*** [Skill learnt] ***
+
+1. Constructor and Destructor
+
+Constructor and Destructor are very handy special member function in class to create a default object and cleanup object. 
+
+Just like other functions, constructor can also be overloaded. 
+
+For example, in DIY tester.cpp, we have the following statement to call the constructor and send arguments to constructors:
+
+Label 
+      theProgram("/-\\|/-\\|", "The Label Maker Program"),
+      EmptyOne1,
+      EmptyOne2("ABCDEFGH");
+
+In above example, EmptyOne1 and EmptyOne2 are both created by Label() and Label(const char* frameArg) repectively;
+However, unlike theProgram, since both EmptyOne1 and 2 did not have both valid arguments, they are only created but nothing will be printed out by the function printLabel().
+
+We do not need to explicitly call anything to clean up the memory in main, as destructor is automatically called when an object goes out of scope.
+
+
+2. *this
+
+In part 1, "*this" is often used in return statement. It is a more efficient way to return the entire class object.
+
+However, I still need to be more careful of what "*this" will be referring to when passing it as an argument. I sent the same content to function hasSameContent(const Canister& C) to do comparison when making use of "*this", which was totally incorrect and something that need to be more aware of.
+
+
+3. in PART 1, new return type: std::ostream&, and return cout;.
+
+	
+4. more practice of the <iomanip> library in PART 2:
+It is very easy to use we can use setw and setfill() to print out the frame in the way we want, instead of using for-loop to display them.
+
+For example:
+I can use setw(strLen(m_content) + 3) and setfill(m_frame[1]) to replace:
+
+	for (i = 0; i < strLen(m_content) + 3; i++) {
+		cout << "m_frame[1]";
+	} 
+
+
+*** [Difficulties] *** 
+
+There are a few things that used up a lot of time: 
+
+PROBLEM 1:
+I spend a lot of time to figure out the problem of the following function in Part 1:
+	bool Canister::hasSameContent(const Canister& C) const { 
+			return strCmp(m_contentName, C.m_contentName) == 0 && m_contentName && C.m_contentName;
+		}
+
+I put strCmp(m_contentName, C.m_contentName) as the first condition to check, and I kept having errors. 
+After spending 2-3hours to debug, I finally understand the problem is caused by the design of my string helper function. If either one of string arguements sent is a nullptr, then it cannot be compared. Therefore I need switch my condition: First, to check if either of them is NULLPTR, then use function strCmp() to do comparison;
+
+
+PROBLEM 2:
+in part 2, we have such statement in the tester.cpp: 
+	theProgram("/-\\|/-\\|", "The Label Maker Program");
+
+I originally thought "\\" will be stored as two characters, therefore, I struggled a lot of thinking how to print out "\" as I did not know how the compiler is storing them as a SINGLE character just like "\0" and "\n". 
+
+
+Biggest problem, just like the previous workshops, sometimes I do not understand why the functions in part 1 has to be designed in such way, and I am always lost while reading the instructions. However, DIY is easier as there are less instructions, and hence, I have more freedom to design my own functions.
+
+
+
+

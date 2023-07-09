@@ -1,0 +1,27 @@
+OOP244 WS01 - Reflect
+
+Section: NEE
+Student Name: Ka Ying, Chan
+Student ID: 123231227
+
+Q1.
+
+There are serveral important concepts of object-oriented programming are covered in this workshop:
+
+1. Namespace:
+In both part 1 and part 2, we make use of the syntax "using namespace std;" and "using namespace sdds;". For the former, "std" means "standard", the whole statement means include the entire standard library from the <iostream>.
+
+The later statement, "sdds" is a user customize namespace. It is important to set a unique name from the system namespace and other programmers, as the purpose of namespace is to avoid naming conflicts of the identifiers (e.g. variables, functions, classes etc.) used by different programmers. 
+
+
+2. Classes:
+
+There are 5 modules in part 1, and similar functions must be put in to the related module name. For example, saveList() and addItemToList() are in the module "ShoppingList", and utilities functions like flushkeys() and readInt() remain in the module "Utils".
+
+By just looking at the modules names alone, we immediately know what functions should be included in that module. 
+
+
+3. Type safety:
+In the DIY, the function strStr() has a return type of const char* and parameters (const char* str1, const char* str2). If the parameters do not match the function prototype specified in the header file, errors will occur. However, in C, such errors are accepted.
+
+

@@ -1,0 +1,52 @@
++***************************+
+	OOP244 - WORKSHOP 5
+		Reflect			  	
++***************************+
+	KA YING, CHAN		  	
+	123231227			  	
+	kchan151@myseneca.ca	
+							
+	MOHAMMAD SHAMAS			
+	NEE		
+	
+	2023 JUNE 15
++===========================+
+
+
+*** [Skill learnt] ***
+
+1. Type conversion operators:
+This function is just for conversion purpose, nothing is changed, only returning values in a different type. Hence, we must put const to make sure the member values will remain unchanged.
+
+2. Member operators:
+Member operators can be and supposed to be overloaded. By using member operator, programmers can validate values before accepting it to execute the equation. One special thing I learnt is, we can use different operators as the operator name even "^=" which I have never seen before and it still works. 
+
+For example I tried to change my helper function in DIY:
+From: 
+   int& operator+=(int& mark, Mark& m); 
+To:
+   int& operator^=(int& mark, Mark& m); 
+
+I manipulated the operator we used in marMain.cpp as well, they still perform as before (+=).
+
+From chatGPT, I am more familar with the way to overload different kind of operators by different symbols:
+
+	Unary Operators: Unary operators operate on a single operand.
+	Examples: +, -, ++, --, !, ~.
+	
+	Binary Operators: operate on two operands.
+	Examples: +, -, *, /, %, ==, !=, <, >, <=, >=, &&, ||.
+	
+	Assignment Operators: are used to assign a value to an object.
+	Examples: =, +=, -=, *=, /=, %=, <<=, >>=, &=, |=, ^=. 
+	
+3. pass by reference:
+In both workshops, we always have the return type with "&" like "Mark& operator+=(const int mark)", to return a reference to the current object as to make sure the returned value of current object must be changed.
+
+
+*** [Difficulties] ***
+The syntax is not too hard to memorize, however, the logic behind is always the hard part.
+
+Creating operator functions for helper functions is the hardest part for both LAB and DIY.
+
+I keep having 'operator += is ambiguous' as I did not use the correct operator for the helper function. I also did not pass the correct parameter to the functions as I forgot I need to make the unchanged values as a const which compiler complaint so much about this . After I understand the concept that I make keep the unchanged value as a const to the parameter, the function starts working.

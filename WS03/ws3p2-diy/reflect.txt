@@ -1,0 +1,73 @@
++***************************+
+	OOP244 - WORKSHOP 3
+		Reflect			  	
++***************************+
+	KA YING, CHAN		  	
+	123231227			  	
+	kchan151@myseneca.ca	
+							
+	MOHAMMAD SHAMAS			
+	NEE		
+	
+	2023 JUNE 4
++===========================+
+
+*** [Skill learnt] ***
+
+This workshop offers a good opportunity to practice with passing datas in 'class' between member functions in both public and private, more familiar with the usage of "modifers" and "queries".
+
+For example, in part 1: 
+
+[Modifers functions]:
+// Private
+	void setName(const char* name);
+// Public
+	void set(const char* name, double price, bool taxed);
+	void setEmpty();
+	
+The setName() function can only be called by the functions set() in the public. 
+As it is a MODIFERS, the values that enter this function might be changed, therefore, we do not need to put const after bracket of the parameters.
+
+
+[Queries functions]
+        void display()const;
+        bool isValid()const;
+        double price()const;
+        double tax()const;
+The best practice for Queries is to put const after (), to make sure that the data will not be changed. 
+
+
+[Helper functions]
+	Cannot directly access to the data, need to make use of public functions to have access to or modify the private data.
+	*We do not have any helper functions (functions that stay outside class) in this workshop
+	
+
+The challenging part of this workshop would be understanding the relationship between each functions and between two modules "bill" and "items":
+In module "Item", while purpose of function set() is to do validation for each item, if the value received in the parameters are valid, the value then can be assigned to the private class, this is what makes this function a "modifier". The public function "isValid() const" is not a modifier, but a "queries". The purpose for this validation is to check if a each item's data (protected in private class) is valid, if true, we can then display the item. 
+
+
+Unlike module "Item", in module "Bill" function isValid() is a private function, and we use init(); as the modifier in this module. While set() validation in "Item" is for each item, init() is for each bill. If and only if all received values are valid, we will accept users to modify value inside private class; If the values are invalid, we set it to EMPTY state by using function setEmpty();.
+
+However, now I also learn that, without the existence of helper functions, plus, as modifiers or queries can stay in both public and private class, the usage difference between public and private class is not big in this workshop.
+
+
+
+Secondly, the function of <iomanip> library:
+		"left/right": to decide the direction of the display message.
+		"setw(value)": To set the length of display format, use with left/right.
+		"setfill": fill string with delimeter after null terminator is reached.
+		"fixed << setprecision(2)": follow the variable that need to be displayed, decided the display floating point precision.
+			
+
+
+*** [Difficulties] *** 
+
+I was stuck for a long time because of not able to do a proper debugging in part 1.
+I thought I followed the instructions correctly and my output was as the same as the one in ItemTester, therefore, I thought there were nothing wrong in my item.cpp and I changed my code a thousand times in module "Bill". Especially many times in function add() and init(), I even changed a correct logic to a wrong one as I started to feel nervous. 
+
+It turns out, I should not put isValid(); in the if-condition of function set(); in "Item.cpp". I did that because at first I thought isValid() can be used for anywhere for validation. It is such a painful experience to learn!
+
+However, I think it would make more sense to me for function display(); to be a helper function instead of public function.
+
+
+After I understand the concept, part 2 was very easy to complete. 

@@ -1,0 +1,65 @@
++***************************+
+	OOP244 - WORKSHOP 2	  	
+		Reflect			  	
++***************************+
+	KA YING, CHAN		  	
+	123231227			  	
+	kchan151@myseneca.ca	
+							
+	MOHAMMAD SHAMAS			
+	NEE						
++===========================+
+
+
+There are some overloaded functions, that they share the same function names but with different return type and receive diffent type of parameters, or even same return type but with different type of parameters.
+
+For example, the functions that are overloaded functions in part 1 are: 
+In file.h:
+	bool read(char empNames[]);
+	bool read(int& empNumber);
+	bool read(double& empSalary);
+	
+	Above overloaded functions are all having same return type and function name but with different type in parameters.
+	
+
+For In and Out parameters, I did some research and here are the definitions:
+
+
+In-parameters: It usually for unmodifiable purposes, and will not be sent to other functions, for example the parameter in display function. (just in, no out.)
+Out-parameters: They are for modifiable purpose, and the result will be used in other functions. 
+Even for functions that adopt void return-type can also make use of out-parameter(s) to send out the result(s). 
+
+In read() functions for both parts of the workshop, they are defined as out-parameters as they are used to store the address of the data retrieved from .csv files.
+Nevertheless, this concept is for all kinds of functions, no matter it is overloaded functions or not.
+
+
+Example of in-parameter used in my workshops is:
+
+Part 1 - Employee.h: 
+void display(const struct Employee& emp, int i); 
+The pointer struct emp is not for modifiable purpose (and should not be modified) but only for display. 
+The i variable is just a regular variable that use for iteration counts.
+
+
+ref. website: https://www.pluralsight.com/guides/csharp-in-out-ref-parameters
+
+*** 
+
+Futhermore, in this workshop, I have practiced and learnt a few amazing concepts:
+
+
+1. How to pass the parameter with pass by reference. Comparing to C, pass by reference is more convinent for programmers to pass parameter in a memory saving ways, which has the 
+advantage of using pass by address with a easier syntax -- pointer "*" are not neccessary anymore. 
+
+2. It is interesting to learn that we can fscanf a file with the same name of the function but with different parameters, and the compiler can automatically differentiate the columns and display the data as the way we expected. 
+
+3. Bool is a new variable type to me, in which I found it very useful when dealing with if-condition. We can also return the whole statement in "return" that make the code so clean. (Comparing with create a variable, then assign it to an expression, then return the variable.)
+
+4. Dynamic allocation: I practiced when to assign "new type[]" with char-type pointer in part1. It is such a powerful way to help allocating memories when we cannot be sure of the array size at first. We can do it by, first, creating a temporary variable with fixed array size. After we know the actual array size, we ask can ask for more memories to assign the value of the temp variable to a pointer that is pointing to the dynamic memory. The temp variable is reusable to deal with more of the above situation to prevent programmers from using more memories then are needed. In part2, we do not need to assign the postal code as we already know that a postal code is 4 characters including '\0'. Learnt from both parts, we can also create a pointer to a struct and do dynamic memory allocation if we do not know the size of the struct at the beginning.
+
+5. By using the syntax "delete[] variable" to prevent memory leak. As well as we open the file and we also need to close the file so as to take of the memories, just like switch off the water-tap after using.
+
+6. It is super amazing that we do not need to round up floating points, unlike what I (we) did in IPC144 -- round up manually (i.e. double-type variable + 0.05). I am so glad that C++ already took care of the rounding up and rounding down automatically with "cout"!!!
+
+
+However, I do have difficulties with reading the instrucions, I found it quite confusing as the instructions in the .cpp files are a little bit difference from the one in the github (readme). It spent me hours to understand what is needed to be done in part 1, after I dealt with it, part2 is easy to complete. 
