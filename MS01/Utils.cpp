@@ -54,7 +54,7 @@ namespace sdds {
 		bool isValid = false;
 		while (isValid==false) {
 			cin >> input;
-			if (!(cin>>input) || input < min || input > max) {
+			if (!cin || input < min || input > max) {
 				cout << "Invalid Selection, try again:";
 				cin.clear();
 				cin.ignore(1024, '\n');

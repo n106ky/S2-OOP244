@@ -76,19 +76,19 @@ namespace sdds {
     }
     ostream& Menu::titleDisplay(ostream& os) {
         if (m_menuTitle) {
-            m_menuTitle.display(); // why I cannot do it like this? >> m_menuTitle.display(os);
+            m_menuTitle.display(); // why cant I do it like this? >> m_menuTitle.display(os);
         }
         return os;
     }
     ostream& Menu::menuDisplay(ostream& os) {
-        m_menuTitle.display(); // NOT SURE, SEE IF I CAN CHANGE THE DISPLAY
+        m_menuTitle.display(); 
         os << ':' << endl;
         for (unsigned int i = 0; i < noOfItems; i++) {
             os << setw(2) << right << i + 1 << "- "; // NOT SURE
-            mI[i]->display(os);
+            mI[i]->display(); // mI[i]->display(os);
             os << endl;
         }
-        os << "0- Exit" << endl << '>';
+        os << setw(2) << right << "0" << "- Exit" << endl << '>';
 
         return os;
     }
@@ -98,9 +98,8 @@ namespace sdds {
 
         return select;
     }
-    Menu& Menu::operator~() { // same as run
-        run();
-        return *this;
+    unsigned int Menu::operator~() { // same as run
+        return run();
     }
     Menu& Menu::operator<<(const char* menuitemConent) { // Unlike WS4 it was receiving an int.  
        
@@ -125,12 +124,19 @@ namespace sdds {
     Menu::operator bool() const {
         return (noOfItems > 0);
     }
-    //const char* Menu::operator[](unsigned int noOfItems) {
-    //    return "x";
-    //}
+    const char* Menu::operator[](unsigned int value)const {
+        const char* items;
+        if (value % noOfItems <= 1) {
+            items = mI[value]->m_content;
+        }
+        else {
+            items = mI[0]->m_content;
+        }
+        return items;
+    }
 
     ostream& operator<<(ostream& os, Menu& m) {
-        return m.titleDisplay(os); // m1 title display goes here.
+        return m.titleDisplay(os); // m1 title display goes here. no =cout, must pass os.
     }
 
 }

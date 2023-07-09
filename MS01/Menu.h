@@ -54,14 +54,14 @@ namespace sdds {
         ~Menu();
 
         // DISPLAY
-        std::ostream& titleDisplay(std::ostream& os);
-        std::ostream& menuDisplay(std::ostream& os = std::cout);
+        std::ostream& titleDisplay(std::ostream& os); // helper function operator<< will call on this func.
+        std::ostream& menuDisplay(std::ostream& os = std::cout); 
 
         // This function displays the Menu and gets the user selection
         unsigned int run(); 
-        Menu& operator~(); // Same as run
+        unsigned int operator~(); // Same as run
         Menu& operator<<(const char* menuitemConent); // add MenuItem to Menu
-        const char* operator[](unsigned int noOfItems);
+        const char* operator[](unsigned int noOfItems)const;
 
         operator int()const;
         operator unsigned int()const;

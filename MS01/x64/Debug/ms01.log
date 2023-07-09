@@ -1,7 +1,6 @@
 ﻿  Date.cpp
   Menu.cpp
   menuTester.cpp
-C:\Users\Nicole Chan\Desktop\Seneca-Summer-2023\OOP244\to Github\OOP244\MS01\menuTester.cpp(19,17): warning C4101: 's': unreferenced local variable
   Utils.cpp
   Generating Code...
   ms01.vcxproj -> C:\Users\Nicole Chan\Desktop\Seneca-Summer-2023\OOP244\to Github\OOP244\MS01\x64\Debug\ms01.exe
