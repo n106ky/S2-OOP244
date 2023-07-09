@@ -43,7 +43,7 @@ namespace sdds {
         //cout << "deleting m_content" << endl;
     }
     MenuItem::operator bool() const {
-        return (m_content && m_content[0] != '\0'); // m_content;
+        return (m_content && m_content[0] != '\0');
     }
     MenuItem::operator const char* () const {
         return m_content;
@@ -69,14 +69,14 @@ namespace sdds {
     }
 
     Menu::~Menu() {
-        for (unsigned int i = 0; i < MAX_MENU_ITEMS; i++) { // MAX_MENU_ITEMS should be an countable value
+        for (unsigned int i = 0; i < MAX_MENU_ITEMS; i++) { // MAX_MENU_ITEMS to make sure EVERY items in the array are deleted
             delete mI[i];
         }
         // cout << "deleting mI" << endl;
     }
     ostream& Menu::titleDisplay(ostream& os) {
         if (m_menuTitle) {
-            m_menuTitle.display(); // why cant I do it like this? >> m_menuTitle.display(os);
+            m_menuTitle.display();
         }
         return os;
     }
@@ -87,7 +87,7 @@ namespace sdds {
             os << ':' << endl;
         }
         for (unsigned int i = 0; i < noOfItems; i++) {
-            os << setw(2) << right << i + 1 << "- "; // NOT SURE
+            os << setw(2) << right << i + 1 << "- ";
             mI[i]->display(); // mI[i]->display(os);
             os << endl;
         }
@@ -101,10 +101,10 @@ namespace sdds {
 
         return select;
     }
-    unsigned int Menu::operator~() { // same as run
+    unsigned int Menu::operator~() {
         return run();
     }
-    Menu& Menu::operator<<(const char* menuitemConent) { // Unlike WS4 it was receiving an int.  
+    Menu& Menu::operator<<(const char* menuitemConent) {
        
         if (noOfItems < MAX_MENU_ITEMS) {
             // Dynamically create a new MenuItem
@@ -139,7 +139,7 @@ namespace sdds {
     }
 
     ostream& operator<<(ostream& os, Menu& m) {
-        return m.titleDisplay(os); // m1 title display goes here. no =cout, must pass os.
+        return m.titleDisplay(os);
     }
 
 }

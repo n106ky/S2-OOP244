@@ -1,13 +1,3 @@
-// Final Project Milestone 1 
-// Date Module
-// File	Date.cpp
-// Version 1.0
-// Author	Fardad Soleimanloo
-// Revision History
-// -----------------------------------------------------------
-// Name               Date                 Reason
-// 
-/////////////////////////////////////////////////////////////////
 /*
     OOP244 MS1
 
