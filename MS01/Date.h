@@ -63,10 +63,14 @@ namespace sdds {
       bool operator<(const Date& d)const;
       bool operator>(const Date& d)const;
 
-      int operator-(const Date& d);
+      // int operator-(const Date& d);
       operator bool() const;
+
+      // Create a getter for daysSince0001_1_1
+      int getDays() const;
       
    };
+   int operator-(const Date& d1, const Date& d2);
    std::ostream& operator<<(std::ostream& os, const Date& RO);
    std::istream& operator>>(std::istream& is, Date& RO);
 }

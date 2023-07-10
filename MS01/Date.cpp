@@ -91,7 +91,8 @@ namespace sdds {
       return RO.read(is);
    }
 
-   
+   // ************************** FUNCTIONS TO IMPLEMENT **************************
+
    // reads a date from the console in the following format YYYY / MM / DD
    istream& Date::read(istream& is) {
        // Clears the error code by setting it NO_ERROR
@@ -127,14 +128,7 @@ namespace sdds {
            os << dateStatus();
        }
        else {
-           /*
-           Prints the year
-           Prints a Slash “ / ”
-           Prints the month in two spaces, padding the left digit with zero if the month is a single - digit number
-           Prints a Slash “ / ”
-           Prints the day in two spaces, padding the left digit with zero if the day is a single - digit number*/
            os << m_year << '/' << setw(2) << setfill('0') << m_mon << '/' << setw(2) << setfill('0') << m_day;
-           
            // Makes sure the padding is set back to spaces from zero
            os << setfill(' ');
        }
@@ -162,13 +156,22 @@ namespace sdds {
        return daysSince0001_1_1() > d.daysSince0001_1_1();
    }
 
-   // difference between 2 days:
-   int Date::operator-(const Date& d) {
-       int diff = daysSince0001_1_1() - d.daysSince0001_1_1();
-       return diff;
+   int Date::getDays() const {
+       return daysSince0001_1_1();
    }
 
-   // return true if the date is valid and false if it is not
+   // Difference between 2 days:
+   //int Date::operator-(const Date& d) {
+   //    int diff = daysSince0001_1_1() - d.daysSince0001_1_1();
+   //    return diff;
+   //}
+
+   // NOT WORKING in Matrix, change it to helper function
+   int operator-(const Date& d1, const Date& d2) {
+       return d1.getDays() - d2.getDays();
+   }
+
+   // Return true if the date is valid and false if it is not
    Date::operator bool() const {
        return (!bad());
    }
