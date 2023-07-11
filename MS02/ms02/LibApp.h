@@ -19,11 +19,6 @@ namespace sdds {
 
     // [FOR NOW - INHERIT PUBLIC MENU FIRST]
     class LibApp: public Menu { 
-        /*  A flag to keep track of changes made to the application data.
-            This flag is initially set to false.
-            If any change is made to the data of the application, this flag is set to true.
-            Doing so, when exiting the program,
-            we can warn the user and ask if they like the changes to be saved or discarded.*/
         bool m_changed{};
         Menu m_mainMenu{};
         Menu m_exitMenu{}; 
@@ -35,29 +30,16 @@ namespace sdds {
         Finally, run the menu and return true if the run method of Menu returns 1 and otherwise this function returns false.*/
         bool confirm(const char* message);
 
-        // SIMPLE PRIVATE FUNCTIONS - STATEMENTS PRINTING:
+        // PRIVATE - STATEMENTS PRINTING:
         void load();
         void save();   
         void search();  
         void returnPub();  
+
     public:
-        /*prints "Adding new publication to library"+newline
-        calls the confirm method with "Add this publication to library?"
-        if confrim returns true, it will set m_changed to true and prints "Publication added" + newline
-        */
+        // PUBLIC - STATEMENTS PRINTING:
         void newPublication();
-
-        /*
-        prints "Removing publication from library"+newline
-        calls the search method
-        calls the confirm method with "Remove this publication from the library?"
-        if confrim returns true, it will set m_changed to true and prints "Publication removed" + newline*/
         void removePublication();
-
-        /*
-        calls the search method
-        calls the confirm method with Check out publication?"
-        if confrim returns true, it will set m_changed to true and prints "Publication checked out" + newline*/
         void checkOutPub();
 
         // CONSTRUCTOR:

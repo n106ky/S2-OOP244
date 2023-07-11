@@ -24,7 +24,7 @@ namespace sdds {
         return 1;
     }
 
-    // [DONE] SIMPLE PRIVATE FUNCTIONS - STATEMENTS PRINTING:
+    // [DONE] PRIVATE - STATEMENTS PRINTING:
     void LibApp::load() {
         cout << "Loading Data\n";
     } 
@@ -43,42 +43,41 @@ namespace sdds {
 
     // PUBLIC FUNCTIONS:
 
-    /*prints "Adding new publication to library"+newline
-    calls the confirm method with "Add this publication to library?"
-    if confrim returns true, it will set m_changed to true and prints "Publication added" + newline
-    */
+    // [DONE] PUBLIC - STATEMENTS PRINTING:
     void LibApp::newPublication() {
-
+        cout << "Adding new publication to library\n";
+        if (confirm("Add this publication to library?")) {
+            m_changed = true;
+            cout << "Publication added\n";
+        }
+        else {
+            m_changed = false;
+        }
     }
-
-    /*
-    prints "Removing publication from library"+newline
-    calls the search method
-    calls the confirm method with "Remove this publication from the library?"
-    if confrim returns true, it will set m_changed to true and prints "Publication removed" + newline*/
     void LibApp::removePublication() {
-
+        cout << "Removing publication from library\n";
+        search();
+        if (confirm("Remove this publication from the library?")) {
+            m_changed = true;
+            cout << "Publication removed\n";
+        }
+        else {
+            m_changed = false;
+        }
     }
-
-    /*
-    calls the search method
-    calls the confirm method with Check out publication?"
-    if confrim returns true, it will set m_changed to true and prints "Publication checked out" + newline*/
     void LibApp::checkOutPub() {
-
+        search();
+        if (confirm("Check out publication?")) {
+            m_changed = true;
+            cout << "Publication checked out\n";
+        }
+        else {
+            m_changed = false;
+        }
     }
 
     // [SHD BE OK - DEBUGGED AND EVERYTHING IS THERE] CONSTRUCTOR:
     LibApp::LibApp() {
-
-        /*Initializes the attributes (see the attribute section)
-        populates the Menu attributes*/
-
-        /*  A flag to keep track of changes made to the application data.
-            This flag is initially set to false.
-            If any change is made to the data of the application, this flag is set to true.
-            Doing so, when exiting the program,
-            we can warn the user and ask if they like the changes to be saved or discarded.*/
         m_changed = false;     
 
         Menu m_mainMenu("Seneca Libray Application");
@@ -98,7 +97,6 @@ namespace sdds {
             m_mainMenu << endl <<
             m_exitMenu << endl;
 
-        // calls the `load()`` method
         load();
     }
 
