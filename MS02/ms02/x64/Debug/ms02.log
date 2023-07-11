@@ -1,0 +1,12 @@
+﻿  LibApp.cpp
+  Menu.cpp
+  ms2_tester.cpp
+C:\Users\Nicole Chan\Desktop\Seneca-Summer-2023\OOP244\MS02\ms02\ms2_tester.cpp(15,11): error C2039: 'run': is not a member of 'sdds::LibApp'
+C:\Users\Nicole Chan\Desktop\Seneca-Summer-2023\OOP244\MS02\ms02\LibApp.h(19,11): message : see declaration of 'sdds::LibApp'
+C:\Users\Nicole Chan\Desktop\Seneca-Summer-2023\OOP244\MS02\ms02\ms2_tester.cpp(17,11): error C2039: 'run': is not a member of 'sdds::LibApp'
+C:\Users\Nicole Chan\Desktop\Seneca-Summer-2023\OOP244\MS02\ms02\LibApp.h(19,11): message : see declaration of 'sdds::LibApp'
+C:\Users\Nicole Chan\Desktop\Seneca-Summer-2023\OOP244\MS02\ms02\ms2_tester.cpp(19,11): error C2039: 'run': is not a member of 'sdds::LibApp'
+C:\Users\Nicole Chan\Desktop\Seneca-Summer-2023\OOP244\MS02\ms02\LibApp.h(19,11): message : see declaration of 'sdds::LibApp'
+C:\Users\Nicole Chan\Desktop\Seneca-Summer-2023\OOP244\MS02\ms02\ms2_tester.cpp(21,11): error C2039: 'run': is not a member of 'sdds::LibApp'
+C:\Users\Nicole Chan\Desktop\Seneca-Summer-2023\OOP244\MS02\ms02\LibApp.h(19,11): message : see declaration of 'sdds::LibApp'
+  Generating Code...
