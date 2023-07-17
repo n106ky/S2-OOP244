@@ -1,0 +1,41 @@
++***************************+
+	OOP244 - WORKSHOP 7
+		Reflect			  	
++***************************+
+	KA YING, CHAN		  	
+	123231227			  	
+	kchan151@myseneca.ca	
+							
+	MOHAMMAD SHAMAS			
+	NEE		
+	
+	2023 JULY 15
++===========================+
+
+
+*** [Skill learnt] ***
+
+1. Overloading constructor:
+If default constructor is not implemented, as long as the data member are initialized, constructor can be overloaded.
+In this workshop, I did not create any default constructor and it worked, I am now more familiar with the concept.
+
+2. Inheritance :
+Inheritance allows us to reuse codes and methods from base class, as derived class inherit all the member variables and member functions of the base class.
+
+In this workshop, the "Truck" class inherit from another class "MotorVehicle" using the ":" symbol, which stands for inheritance declaration.
+
+It means that the Truck class inherits all the member variables and member functions of the MotorVehicle class. 
+This allows the Truck class to access and use the inherited members directly, and therefore, we should not create data members in the Truck class that share the same meaning with those in MotorVehicle.
+
+
+*** [Difficulties] ***
+
+Setting up overloading constructor for Truck class spent me some time... 
+
+Although I acquired the syntax from in-class example, it still took me a while to figure out how my constructor should be developed. 
+It is because at first I did not realise that I need to call the constuctor of the bass class "MotorVehicle", I thought I can use those members of the base class directly.
+
+
+Other than that the functions in this workshop are easy to understand (i.e. the usuage / purpose of this function is clear), probably the easiest workshop til now. 
+
+After a few workshops, now I am more confident with the ostream / istream to display and read too.
