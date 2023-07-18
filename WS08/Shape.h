@@ -28,7 +28,7 @@ namespace sdds {
 	class Shape {
 	public:
 		/*
-		PVF 1: draw
+		draw
 		Returns void and receives a reference to ostream as an argument.
 		This pure virtual function can not modify the current object.
 		*/
@@ -36,7 +36,7 @@ namespace sdds {
 
 
 		/*
-		PVF 2: getSpecs
+		getSpecs
 		Returns void and receives a reference to istream as an argument.
 		*/
 		virtual void getSpecs(std::istream& in) = 0;

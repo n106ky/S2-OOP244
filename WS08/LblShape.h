@@ -34,7 +34,7 @@ namespace sdds {
 		char* m_label{ nullptr };
 
 
-	protected: // WHY DO WE NEED TO MAKE IT PROTECTED AGAIN? (ONLY FOR DERIVED MEMBER RIGHT?)
+	protected: // DERIVED MEMBER ONLY
 		/*
 		Protected members:
 		label()
