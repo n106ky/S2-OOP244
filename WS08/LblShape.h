@@ -82,7 +82,11 @@ namespace sdds {
 
 
 		// Will not implement the draw function
-		virtual void draw(std::ostream& os) const = 0;
+		// NEED IT TO MAKE LBLSHAPE AN ABSTRACT CLASS
+		//virtual void draw(std::ostream& os) const = 0; 		// THE CHILDRED MUST HAVE. 
+															// IF I DO NOT PUT THIS IN HEADER, IS IT STILL AN ASTRACT?
+															// CHILDREN MUST HAVE EVERYTHING THAT SHAPE HAVE?
+															// HOW COME I CAN COMMENT IT OUT???
 	};	
 }
 
