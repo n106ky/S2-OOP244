@@ -39,14 +39,10 @@ namespace sdds {
 		resetDate();
 	}
 	void Publication::set(int member_id) {
-		if (member_id) {
 			m_membership = member_id;
-		}
 	}
 	void Publication::setRef(int value) {
-		if (value) {
 			m_libRef = value;
-		}
 	}
 	void Publication::resetDate() {
 		m_date = Date();
@@ -148,8 +144,8 @@ namespace sdds {
 		//	m_title = new char[strlen(src.m_title) + 1];
 		//	strcpy(m_title, src.m_title);
 		//	strcpy(m_shelfId, src.m_shelfId);
-		//  m_membership = src.m_membership; // set(src.m_membership);
-		//  m_libRef = src.m_libRef;// setRef(src.m_libRef);
+		//  set(src.m_membership);
+		//  setRef(src.m_libRef);
 		//	m_date = src.m_date;
 		//	cout << "CREATING NEW PUBLICATION WITH COPY CONSTRUCTOR" << endl;
 		//}
@@ -165,8 +161,8 @@ namespace sdds {
 				m_title = new char[strlen(src.m_title) + 1];
 				strcpy(m_title, src.m_title);
 				strcpy(m_shelfId, src.m_shelfId);
-				m_membership = src.m_membership; // set(src.m_membership);
-				m_libRef = src.m_libRef;// setRef(src.m_libRef);
+				set(src.m_membership);
+				setRef(src.m_libRef);
 				m_date = src.m_date;
 				// cout << "CREATING NEW PUBLICATION WITH COPY ASSIGNMENT" << endl;
 			}
