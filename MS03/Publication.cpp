@@ -81,12 +81,12 @@ namespace sdds {
 	ostream& Publication::write(ostream& os)const {
 		if (conIO(os)) {
 			os << "| " << m_shelfId << " | " << setw(30) << left << setfill('.') << m_title << " | ";
-			onLoan() ? os << m_membership : os << " N / A ";
+			onLoan() ? os << m_membership : os << " N/A ";
 			os << " | " << checkoutDate() << " |"; // m_date;
 		}
 		else {
 			os << type() << "\t" << m_libRef << "\t" << m_shelfId << "\t" << m_title << "\t";
-			onLoan() ? os << m_membership : os << " N / A ";
+			onLoan() ? os << m_membership : os << " N/A ";
 			os << "\t" << checkoutDate(); // m_date;
 		}
 		return os;
@@ -127,7 +127,7 @@ namespace sdds {
 		if (!temp_date) { // Not correct: temp_date.operator bool()
 			in.setstate(ios::failbit);
 		}
-		if (!in.fail()) {
+		if (in) { // !in.fail()
 			m_title = new char[strlen(temp_title)+1];
 			strcpy(m_title, temp_title);
 			strcpy(m_shelfId, temp_shelfId);
@@ -148,8 +148,8 @@ namespace sdds {
 		//	m_title = new char[strlen(src.m_title) + 1];
 		//	strcpy(m_title, src.m_title);
 		//	strcpy(m_shelfId, src.m_shelfId);
-		//	set(src.m_membership);
-		//	setRef(src.m_libRef);
+		//  m_membership = src.m_membership; // set(src.m_membership);
+		//  m_libRef = src.m_libRef;// setRef(src.m_libRef);
 		//	m_date = src.m_date;
 		//	cout << "CREATING NEW PUBLICATION WITH COPY CONSTRUCTOR" << endl;
 		//}
@@ -165,9 +165,9 @@ namespace sdds {
 				m_title = new char[strlen(src.m_title) + 1];
 				strcpy(m_title, src.m_title);
 				strcpy(m_shelfId, src.m_shelfId);
-				set(src.m_membership);
-				setRef(src.m_libRef);
-				m_date = src.m_date; 
+				m_membership = src.m_membership; // set(src.m_membership);
+				m_libRef = src.m_libRef;// setRef(src.m_libRef);
+				m_date = src.m_date;
 				// cout << "CREATING NEW PUBLICATION WITH COPY ASSIGNMENT" << endl;
 			}
 		}

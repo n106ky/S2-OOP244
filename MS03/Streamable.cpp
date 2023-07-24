@@ -17,8 +17,8 @@
 using namespace std;
 namespace sdds {
 
-    istream& operator>>(istream& in, Streamable& s) {
-        return s.read(in);
+    istream& operator>>(istream& is, Streamable& s) {
+        return s.read(is);
     }
 
     ostream& operator<<(ostream& os, const Streamable& s) {
@@ -29,6 +29,5 @@ namespace sdds {
         return os;
     }
 
-    Streamable::~Streamable() {
-    };
+    Streamable::~Streamable() {};
 }

@@ -34,7 +34,7 @@ namespace sdds {
 	The publication class is a general encapsulation of any periodic publication.
 	Later by adding an author to the descendant of the Publication class we will encapsulate a Book for the system.
 	*/
-	class Publication : public Lib {
+	class Publication : public Streamable {
 
 		char* m_title{ nullptr };						// TITLE FOR THE PUBLICATION. DYNAMIC. MAX 255 CHAR.	// Wrong: char *m_title[255+1]{};
 		char m_shelfId[SDDS_SHELF_ID_LEN + 1]{};		// LOCATION OF THE PUBLICATION IN THE LIBRARY. EXACTLY 4 CHAR LONG. 
