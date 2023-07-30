@@ -1,0 +1,69 @@
++***************************+
+	OOP244 - WS 9 / MS3 / MS4
+		Reflect			  	
++***************************+
+	KA YING, CHAN		  	
+	123231227			  	
+	kchan151@myseneca.ca	
+							
+	MOHAMMAD SHAMAS			
+	NEE		
+	
+	2023 JULY 30
++===========================+
+
+
+*** [Skill learnt] ***
+
+	WORKSHOP 9
+
+	1. Printing sequence
+	The write function in workshop 9 contain a boolean for printing purpose.
+
+	It is to check if there is consecutive whitespaces. If yes, boolean will turn to true. If the next one is not as well a whitespaces, we change boolean back to false. The first whitespace will remain the same but the following whitespaces will be changed to "&nbsp". 
+
+	I tried find another way to perform the same, however, the changes happen on the current whitespace but not the following one. I think using boolean is the easiest way to solve this problem.
+
+
+	MS3
+	
+	1. src = src.operator bool()
+	Almost in every workshop if there is operator bool(), I will call the function by its full name, for example "if(src.operator bool())". In fact, coding it as "if(src)" will perform the same way.
+	
+	
+
+*** [Difficulties] ***
+
+	MS3
+	
+	1. char *variable vs char variable[] for local variable
+	I was confused when defining the type for local variable in Read function. 
+	
+	At first I tried to define the local variable temp_title as the same type as the private member m_title which hold dynamic memory. 
+	
+	Obviously it was wrong. If I define it as char *temp_title, I would still need another static string variable to get size of the string and assign dynamic memories for temp_title. 
+	
+	2. setting wrong conditions in function Publication::set()
+	I want to check if member_id exist before assign it to data member, therefore I have the condition as "if(member_id)". Since memberId can be zero or 5-digit. When the ID is zero, I could not assign it to data member which was totally wrong.
+	
+	
+	MS4
+	
+	1. write() in Book.cpp
+	We are required to print only up to 15 characters for the author name.
+	I tried to use for-loop to print the characters one by one, however the spacing was very weird when after I display them with <iomanip> function (i.e. setw, left and setfill). I do not know how to fix it, so I just store them in another variable which takes only upto 15 characters with strncpy.
+	
+	
+	2. Not comfident with the use of get and getline
+	When I use getline, only 110 records is printed to the console.
+	I noticed that I printed one record and skipped the following one, then I assume something is wrong with my cin.
+	
+	After I changed it to get, it gets all 220 records correctly.
+	
+	Getline: discards the newline character and does not include it in the string that it stores.
+	Get: newline character is also read by get and included in the character array it stores.
+	
+	I guess I might have skipped the records because of discarding the newline character with getline. And that might related to another provided function getNextRec() where it has a statement ifstr.ignore(1000, '\n').
+	
+	
+	
