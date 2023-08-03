@@ -22,7 +22,7 @@ namespace sdds {
         bool m_changed{};
         Menu m_mainMenu{ "Seneca Library Application\n" };
         Menu m_exitMenu{ "Changes have been made to the data, what would you like to do?\n" };
-        Menu m_selectPubType{ "Choose the type of publication:" }; /* MS5:
+        Menu m_selectPubType{ "Choose the type of publication:\n" }; /* MS5:
                                                             Add a Menu to the LibApp for selection of publication type.
                                                             The title of this menu is: "Choose the type of publication:"
                                                             The publication type menu should also provide two selections: "Book" and "Publication".

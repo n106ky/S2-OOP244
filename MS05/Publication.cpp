@@ -90,8 +90,11 @@ namespace sdds {
 		}
 		else {
 			os << type() << "\t" << m_libRef << "\t" << m_shelfId << "\t" << m_title << "\t";
-			onLoan() ? os << m_membership : os << " N/A ";
-			os << "\t" << checkoutDate(); // m_date;
+			// onLoan() ? os << m_membership : os << " N/A ";
+			os << m_membership << "\t" << checkoutDate(); // m_date;
+			if (type() == 'P') {
+				os << endl;
+			}
 		}
 		return os;
 	}
@@ -108,14 +111,15 @@ namespace sdds {
 		setToDefault();
 		if (conIO(in)) {
 			cout << "Shelf No: ";
-			in.getline(temp_shelfId, SDDS_SHELF_ID_LEN + 1); // read the shelf number up to its limit
+			in >> temp_shelfId; // read the shelf number up to its limit
 			if (strlen(temp_shelfId) != SDDS_SHELF_ID_LEN) {
 				// Manually set the 'is' object to a fail state
 				// in.clear(); // To clear (reset) any previous error flags
 				in.setstate(ios::failbit);
 			}
 			cout << "Title: ";
-			in.getline(temp_title, 255+1);
+			in.ignore();
+			in.getline(temp_title, '\n');
 			cout << "Date: ";
 			in >> temp_date;
 		}
@@ -125,7 +129,7 @@ namespace sdds {
 			in.getline(temp_shelfId, SDDS_SHELF_ID_LEN + 1, '\t');
 			in.getline(temp_title, 255 + 1, '\t');
 			in >> temp_membership;
-			in.ignore(100, '\t'); // in.ignore();
+			in.ignore(); // in.ignore(100, '\t');
 			in >> temp_date;
 		}
 		if (!temp_date) { // Not correct: temp_date.operator bool()

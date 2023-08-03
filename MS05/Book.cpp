@@ -73,7 +73,7 @@ namespace sdds {
             os << " |";
         }
         else {
-            os << '\t' << m_authorName;
+            os << '\t' << m_authorName << endl;
         }
 
         return os;

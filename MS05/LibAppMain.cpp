@@ -42,7 +42,7 @@ void runApp(const char* filename) {
    std::cout << "<=========\n";
 }
 int main() {
-   Menu outFile("Select Data File");
+   Menu outFile("Select Data File:\n");
    outFile << "LibRecsSmall.txt" << "LibRecs.txt";
    switch(outFile.run()) {
    case 1:

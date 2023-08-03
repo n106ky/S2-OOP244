@@ -32,18 +32,16 @@ namespace sdds {
     void LibApp::load() {
         // First print "Loading Data"
         cout << "Loading Data\n";
-
-        fstream newfile;
-
+        ifstream readfile;
         // and then open the data file for reading     
         // and read all the publications in dynamic instances pointed by the PPA Array.
-        newfile.open(m_filename, ios::in); // READ
+        readfile.open(m_filename); // ios::in
         char type{};
-        for (int i = 0; newfile; i++) { // Continue this until the ifstream reading fails.
+        for (int i = 0; readfile; i++) { // Continue this until the ifstream reading fails.
             // Do this by first reading a single character for the type of publication
-            newfile >> type;
-            newfile.ignore(); // '\t'
-            if (newfile) {
+            readfile >> type;
+            readfile.ignore(); // '\t'
+            if (readfile) {
                 // and then dynamically instantiating the corresponding object into the next available PPA element.
                 if (type == 'P')
                     m_PPA[i] = new Publication;
@@ -51,7 +49,7 @@ namespace sdds {
                     m_PPA[i] = new Book;
                 if (m_PPA[i]) {
                     //  Then extract the object from the file stream and add one to the NOLP.
-                    newfile >> *m_PPA[i];
+                    readfile >> *m_PPA[i];
                     m_noLoadedPubs++;
                     // Since the extraction operator calls the proper read function virtually,
                     // the object will be properly read from the file.
@@ -60,12 +58,19 @@ namespace sdds {
                 }
             }
         }
-        newfile.close();
+        readfile.close();
     }
 
     void LibApp::save() {
         cout << "Saving Data\n";
-    } 
+        ofstream writefile;
+        writefile.open(m_filename);
+        for (int i = 0; i < m_noLoadedPubs; i++) {
+            if (m_PPA[i]->getRef()) {
+                 m_PPA[i]->write(writefile);
+            }
+        }
+    }
     void LibApp::search() {
         cout << "Searching for publication\n";
     }
@@ -80,14 +85,47 @@ namespace sdds {
 
     // PUBLIC - STATEMENTS PRINTING:
     void LibApp::newPublication() {
-        cout << "Adding new publication to library\n";
-        m_selectPubType.run();
-        if (confirm("Add this publication to library?\n")) {
-            m_changed = true;
-            cout << "Publication added\n";
+        if (m_noLoadedPubs == SDDS_LIBRARY_CAPACITY) {
+            cout << "Library is at its maximum capacity!\n";
         }
         else {
-            m_changed = false;
+            cout << "Adding new publication to library\n";
+            int selectedType = m_selectPubType.run();
+            Publication* tempPub{};
+            if (selectedType == 1) {
+                tempPub = new Book; // *m_PPA
+                tempPub->read(cin);
+            }
+            else if (selectedType == 2) {
+                tempPub = new Publication; // *m_PPA
+                tempPub->read(cin);
+            }
+            if (cin) {
+                if (confirm("Add this publication to library?\n")) {
+                    if (tempPub) {
+                        m_LLRN++;
+                        tempPub->setRef(m_LLRN);
+                        m_PPA[m_noLoadedPubs] = tempPub;
+                        m_noLoadedPubs++;
+                        m_changed = true;
+                        cout << "Publication added\n";
+                    }
+                    else {
+                        m_changed = false;
+                        cout << "Failed to add publication!\n";
+                        delete m_PPA[m_noLoadedPubs];
+                    }
+                }
+                else {
+                    m_changed = false;
+                    cout << "Aborted!\n";
+                }
+            }
+            else {
+                cin.clear();
+                cin.ignore(1000, '\n');
+                cout << "Aborted!\n";
+            }
         }
     }
     void LibApp::removePublication() {
