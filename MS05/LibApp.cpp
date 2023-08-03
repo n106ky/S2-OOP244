@@ -13,6 +13,8 @@
 */
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
+#include <fstream>
+#include <string>
 #include "LibApp.h"
 #include "Utils.h"
 using namespace std;
@@ -23,11 +25,44 @@ namespace sdds {
         return menu.run();
     }
 
-    // PRIVATE - STATEMENTS PRINTING:
-    void LibApp::load() {
 
+
+    // PRIVATE - STATEMENTS PRINTING:
+
+    void LibApp::load() {
+        // First print "Loading Data"
         cout << "Loading Data\n";
-    } 
+
+        fstream newfile;
+
+        // and then open the data file for reading     
+        // and read all the publications in dynamic instances pointed by the PPA Array.
+        newfile.open(m_filename, ios::in); // READ
+        char type{};
+        for (int i = 0; newfile; i++) { // Continue this until the ifstream reading fails.
+            // Do this by first reading a single character for the type of publication
+            newfile >> type;
+            newfile.ignore(); // '\t'
+            if (newfile) {
+                // and then dynamically instantiating the corresponding object into the next available PPA element.
+                if (type == 'P')
+                    m_PPA[i] = new Publication;
+                else if (type == 'B')
+                    m_PPA[i] = new Book;
+                if (m_PPA[i]) {
+                    //  Then extract the object from the file stream and add one to the NOLP.
+                    newfile >> *m_PPA[i];
+                    m_noLoadedPubs++;
+                    // Since the extraction operator calls the proper read function virtually,
+                    // the object will be properly read from the file.
+                                    // At the end set the LLRN to the reference number of the last publication read.
+                    m_LLRN = m_PPA[i]->getRef(); // +1
+                }
+            }
+        }
+        newfile.close();
+    }
+
     void LibApp::save() {
         cout << "Saving Data\n";
     } 
@@ -46,6 +81,7 @@ namespace sdds {
     // PUBLIC - STATEMENTS PRINTING:
     void LibApp::newPublication() {
         cout << "Adding new publication to library\n";
+        m_selectPubType.run();
         if (confirm("Add this publication to library?\n")) {
             m_changed = true;
             cout << "Publication added\n";
@@ -78,7 +114,18 @@ namespace sdds {
 
     // CONSTRUCTOR:
     LibApp::LibApp() {
-        m_changed = false;     
+        LibApp::setToDefault();
+    }
+
+    LibApp::LibApp(const char* filename) {
+        if (filename) {
+            strcpy(m_filename, filename);
+        }
+        LibApp::setToDefault();
+    }
+
+    void LibApp::setToDefault() {
+        m_changed = false;
 
         //Menu m_mainMenu("Seneca Libray Application"); // CAUTION: IT WILL CREATE ANOTHER OBJECT. NOT CORRECT.
         m_mainMenu <<
@@ -88,9 +135,13 @@ namespace sdds {
             /*4*/"Return publication to library";
 
         // Menu m_exitMenu("Changes have been made to the data, what would you like to do?");
-        m_exitMenu << 
+        m_exitMenu <<
             /*1*/"Save changes and exit" <<
             /*2*/"Cancel and go back to the main menu";
+
+        m_selectPubType <<
+            /*1*/"Book" <<
+            /*2*/"Publication";
 
         /* FOR TESTING: */
         //cout << "Creating new LibApp...\n" << endl;
@@ -99,6 +150,11 @@ namespace sdds {
         //    m_exitMenu << endl;
 
         load();
+    }
+    LibApp::~LibApp() {
+        for (int i = 0; i < SDDS_LIBRARY_CAPACITY; i++) {
+            delete m_PPA[i];
+        }
     }
 
     void LibApp::run() {
