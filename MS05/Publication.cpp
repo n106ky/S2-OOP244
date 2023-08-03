@@ -1,5 +1,5 @@
 /*
-	OOP244 MS3
+	OOP244 Milestone
 
 	KA YING, CHAN #123231227
 	kchan151@myseneca.ca
@@ -8,9 +8,8 @@
 	NEE
 
 	I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
-	COMPLETED: 2023 JULY 24
-
-	MODIFIED: 2023 JULY 29
+	MS03: 2023 JULY 29
+	MS51: 2023 AUG 3
 */
 #define _CRT_SECURE_NO_WARNINGS
 // #include <ios>

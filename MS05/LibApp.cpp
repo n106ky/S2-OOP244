@@ -1,22 +1,25 @@
 /*
-    OOP244 MS2
+    OOP244 Milestone
 
-    KA YING, CHAN
-    123231227
+    KA YING, CHAN #123231227
     kchan151@myseneca.ca
 
     MOHAMMAD SHAMAS
     NEE
 
     I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
-    2023 JULY 12
+    MS02: 2023 JULY 12
+    MS51: 2023 AUG 3
 */
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstring>
+#include "PublicationSelector.h"
 #include "LibApp.h"
 #include "Utils.h"
+
 using namespace std;
 namespace sdds {
     bool LibApp::confirm(const char* message) {
@@ -25,36 +28,24 @@ namespace sdds {
         return menu.run();
     }
 
-
-
     // PRIVATE - STATEMENTS PRINTING:
-
     void LibApp::load() {
-        // First print "Loading Data"
         cout << "Loading Data\n";
         ifstream readfile;
-        // and then open the data file for reading     
-        // and read all the publications in dynamic instances pointed by the PPA Array.
         readfile.open(m_filename); // ios::in
         char type{};
-        for (int i = 0; readfile; i++) { // Continue this until the ifstream reading fails.
-            // Do this by first reading a single character for the type of publication
+        for (int i = 0; readfile; i++) {
             readfile >> type;
             readfile.ignore(); // '\t'
             if (readfile) {
-                // and then dynamically instantiating the corresponding object into the next available PPA element.
                 if (type == 'P')
                     m_PPA[i] = new Publication;
                 else if (type == 'B')
                     m_PPA[i] = new Book;
                 if (m_PPA[i]) {
-                    //  Then extract the object from the file stream and add one to the NOLP.
                     readfile >> *m_PPA[i];
                     m_noLoadedPubs++;
-                    // Since the extraction operator calls the proper read function virtually,
-                    // the object will be properly read from the file.
-                                    // At the end set the LLRN to the reference number of the last publication read.
-                    m_LLRN = m_PPA[i]->getRef(); // +1
+                    m_LLRN = m_PPA[i]->getRef();
                 }
             }
         }
@@ -71,11 +62,72 @@ namespace sdds {
             }
         }
     }
-    void LibApp::search() {
+
+    void LibApp::search(int searchModes) { // searchModes: 1 = All, 2 = OnLoan, 3 = Available
         cout << "Searching for publication\n";
+
+        PublicationSelector ps("Select one of the following found matches:");
+        int selectedType = m_selectPubType.run();
+
+        if (selectedType) {
+            cout << "Publication Title: ";
+            char tempTitle[256]{};
+            cin.ignore();
+            cin.getline(tempTitle, '\n');
+
+            for (int i = 0; i < m_noLoadedPubs; i++) { 
+                if (m_PPA[i] && strstr(*m_PPA[i], tempTitle)) { // Why do we need pointer here?
+                    if (selectedType == 1) {
+                        if (m_PPA[i]->type() == 'B') {
+                            if (searchModes == 1) {
+                                ps << m_PPA[i];
+                            }
+                            else if (searchModes == 2) {
+                                if (m_PPA[i]->onLoan()) {
+                                    ps << m_PPA[i];
+                                }
+                            }
+                            else if (searchModes == 3) {
+                                if (!m_PPA[i]->onLoan()) {
+                                    ps << m_PPA[i];
+                                }
+                            }
+                        }
+                    }
+                    else if (selectedType == 2) {
+                        if (searchModes == 1) { 
+                            ps << m_PPA[i];
+                        }
+                        else if (searchModes == 2) {
+                            if (m_PPA[i]->onLoan()) {
+                                ps << m_PPA[i];
+                            }
+                        }
+                        else if (searchModes == 3) {
+                            if (!m_PPA[i]->onLoan()) {
+                                ps << m_PPA[i];
+                            }
+                        }
+                    }
+                }
+            }
+            if (ps) {
+                int isExit = ps.run();
+                if (isExit == 0) {
+                    cout << "Aborted!\n";
+                }
+            }
+            else {
+                cout << "No match found\n";
+            }
+        }
+        else {
+            cout << "Aborted!\n";
+        }
     }
+    
     void LibApp::returnPub() {
-        search();
+        search(2);
         cout << "Returning publication\n";
         cout << "Publication returned\n";
         m_changed = true;
@@ -89,7 +141,7 @@ namespace sdds {
             cout << "Library is at its maximum capacity!\n";
         }
         else {
-            cout << "Adding new publication to library\n";
+            cout << "Adding new publication to the library\n";
             int selectedType = m_selectPubType.run();
             Publication* tempPub{};
             if (selectedType == 1) {
@@ -101,7 +153,7 @@ namespace sdds {
                 tempPub->read(cin);
             }
             if (cin) {
-                if (confirm("Add this publication to library?\n")) {
+                if (confirm("Add this publication to the library?\n")) {
                     if (tempPub) {
                         m_LLRN++;
                         tempPub->setRef(m_LLRN);
@@ -130,8 +182,14 @@ namespace sdds {
     }
     void LibApp::removePublication() {
         cout << "Removing publication from library\n";
-        search();
+        search(1);
+        //PublicationSelector pubSelector{};
+        //int selectedPub_libRef = pubSelector.run();
         if (confirm("Remove this publication from the library?\n")) {
+            // Set the library reference of the selected publication to 0 (zero)
+            //for (int i = 0; i < m_noLoadedPubs; i++) {
+
+            //}
             m_changed = true;
             cout << "Publication removed\n";
         }
@@ -139,8 +197,9 @@ namespace sdds {
             m_changed = false;
         }
     }
+
     void LibApp::checkOutPub() {
-        search();
+        search(3);
         if (confirm("Check out publication?\n")) {
             m_changed = true;
             cout << "Publication checked out\n";
@@ -172,7 +231,6 @@ namespace sdds {
             /*3*/"Checkout publication from library" <<
             /*4*/"Return publication to library";
 
-        // Menu m_exitMenu("Changes have been made to the data, what would you like to do?");
         m_exitMenu <<
             /*1*/"Save changes and exit" <<
             /*2*/"Cancel and go back to the main menu";
@@ -180,12 +238,6 @@ namespace sdds {
         m_selectPubType <<
             /*1*/"Book" <<
             /*2*/"Publication";
-
-        /* FOR TESTING: */
-        //cout << "Creating new LibApp...\n" << endl;
-        //cout << m_changed << endl <<
-        //    m_mainMenu << endl <<
-        //    m_exitMenu << endl;
 
         load();
     }

@@ -154,7 +154,7 @@ namespace sdds {
            os << dateStatus();
        }
        else {
-           os << m_year << '/' << setw(2) << setfill('0') << m_mon << '/' << setw(2) << setfill('0') << m_day;
+           os << m_year << '/' << setw(2) << setfill('0') << right <<  m_mon << '/' << setw(2) << setfill('0') << m_day;
            // Makes sure the padding is set back to spaces from zero
            os << setfill(' ');
        }

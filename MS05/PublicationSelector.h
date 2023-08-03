@@ -27,18 +27,12 @@ namespace sdds {
       ~PublicationSelector();
       PublicationSelector(const PublicationSelector&) = delete;
       PublicationSelector& operator=(const PublicationSelector&) = delete;
-      // adds publication to the menu by address
-      PublicationSelector& operator<<(const Publication* pub);
-      // add publication tot he menu by reference
-      PublicationSelector& operator<<(const Publication& pub);
-      // return true menu is not empty 
-      operator bool()const;
-      // clears all the publications and sets the selector empty and ready to be refilled
-      void reset(); 
-      // sorts the selections based on date and title
-      void sort();
-      // runs the selection return the library reference fo the selection publication.
-      int run();
+      PublicationSelector& operator<<(const Publication* pub);         // adds publication to the menu by address
+      PublicationSelector& operator<<(const Publication& pub);         // add publication tot he menu by reference     
+      operator bool()const;                                            // return true menu is not empty 
+      void reset();                                                    // clears all the publications and sets the selector empty and ready to be refilled
+      void sort();                                                     // sorts the selections based on date and title
+      int run();                                                       // runs the selection return the library reference of the selected publication.
    };
 }
 #endif // !SDDS_PUBLICATIONSELECTOR_H
