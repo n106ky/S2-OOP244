@@ -36,7 +36,7 @@ namespace sdds {
         void returnPub();  
 
     public:
-        Publication* getPub(int libRef);                // return the address of a Publication object in the PPA that has the library reference number matching the "libRef" argument
+        Publication* getPub(int libRef);                // return the m_PPA[i]: m_PPA libRef that matches the User Selected Publication (in publicationSelector) libRef
 
         void newPublication();
         void removePublication();

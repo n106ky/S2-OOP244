@@ -8,10 +8,10 @@
     NEE
 
     I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
-    MS01			: 2023 JUL 9
-    MS03            : 2023 JUL 19
+    MS01	: 2023 JUL 9
+    MS03    : 2023 JUL 19
+    MS54    : 2023 AUG 3
 */
-
 #define _CRT_SECURE_NO_WARNINGS
 #include <iomanip>
 #include <iostream>
@@ -185,16 +185,16 @@ namespace sdds {
        return daysSince0001_1_1();
    }
 
-   // Difference between 2 days:
-   //int Date::operator-(const Date& d) {
-   //    int diff = daysSince0001_1_1() - d.daysSince0001_1_1();
-   //    return diff;
-   //}
-
-   // NOT WORKING in Matrix, change it to helper function
-   int operator-(const Date& d1, const Date& d2) {
-       return d1.getDays() - d2.getDays();
+   // Difference between 2 dates:
+   int Date::operator-(const Date& d) {
+       int diff = daysSince0001_1_1() - d.daysSince0001_1_1();
+       return diff;
    }
+   /* The above operator- is NOT working in Matrix for MS01
+   Change it to helper function: */
+   //int operator-(const Date& d1, const Date& d2) {
+   //    return d1.getDays() - d2.getDays();
+   //}
 
    // Return true if the date is valid and false if it is not
    Date::operator bool() const {

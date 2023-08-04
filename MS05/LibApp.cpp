@@ -16,6 +16,7 @@
 #include <fstream>
 #include <string>
 #include <cstring>
+#include <iomanip>
 #include "PublicationSelector.h"
 #include "LibApp.h"
 #include "Utils.h"
@@ -134,27 +135,27 @@ namespace sdds {
         return selectionRef;
     }
 
-
-    /****************************************** DO NOT DISTURB ******************************************/
-
-
     void LibApp::returnPub() {
         cout << "Return publication to the library\n";
         int rtnRef = search(2);
         if (rtnRef != 0) {
             if (confirm("Return Publication?\n")) {
+                Date d;
+                /*TEST*/
                 /*
-                If the publication is more than 15 days on loan, 
-                a 50 cents per day penalty will be calculated for the number of days exceeding the 15 days.
-                    Following message is printed: Please pay $9.99 penalty for being X days late!
-                    9.99 is replaced with the penalty value and X is replaced with the number of late days.
+                cout << "d: " << d << endl;
+                cout << "Checkout date: " << getPub(rtnRef)->checkoutDate() << endl;
+                cout << getPub(rtnRef)->checkoutDate().operator-(d) << endl;
+                cout << d.operator-(getPub(rtnRef)->checkoutDate()) << endl;
                 */
-
-                for (int i = 0; i < m_noLoadedPubs; i++) {
-                    if (rtnRef == m_PPA[i]->getRef()) {
-                        m_PPA[i]->set(0);
-                    }
+                int diff = d.operator-(getPub(rtnRef)->checkoutDate());
+                if (diff > SDDS_MAX_LOAN_DAYS) { // If LATE > 15days
+                    const double finePerDay = 0.5;
+                    int lateDays = diff - 15;
+                    double fine = finePerDay * lateDays;
+                    cout << "Please pay $" << fixed << setprecision(2) << fine << " penalty for being " << lateDays << " days late!" << endl;
                 }
+                getPub(rtnRef)->set(0);
                 m_changed = true;
                 cout << "Publication returned\n";
             }
@@ -163,11 +164,6 @@ namespace sdds {
             }
         }
     }
-
-
-
-    /****************************************** DO NOT DISTURB ******************************************/
-
 
     // PUBLIC FUNCTIONS:
 
@@ -230,13 +226,7 @@ namespace sdds {
         int rtnRef = search(1);
         if (rtnRef != 0) {
             if (confirm("Remove this publication from the library?\n")) {
-                for (int i = 0; i < m_noLoadedPubs; i++) {
-                    if (rtnRef == m_PPA[i]->getRef()) {
-                        // cout << "rtnRef: " << rtnRef << " | " << "getRef: " << m_PPA[i]->getRef() << endl;
-                        m_PPA[i]->setRef(0);
-                        // cout << "After setRef - m_PPA ref: " << m_PPA[i]->getRef() << endl;
-                    }
-                }
+                getPub(rtnRef)->setRef(0);
                 m_changed = true;
                 cout << "Publication removed\n";
             }
@@ -251,13 +241,8 @@ namespace sdds {
         int rtnRef = search(3);
         if (rtnRef != 0) {
             if (confirm("Check out publication?\n")) {
-                // cout << "Input: " << getValidMembership() << endl;
                 int memberID = getValidMembership();
-                for (int i = 0; i < m_noLoadedPubs; i++) {
-                    if (rtnRef == m_PPA[i]->getRef()) {
-                        m_PPA[i]->set(memberID);
-                    }
-                }
+                getPub(rtnRef)->set(memberID);
                 m_changed = true;
                 cout << "Publication checked out\n";
             }
