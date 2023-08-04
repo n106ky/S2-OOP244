@@ -8,8 +8,8 @@
     NEE
 
     I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
-    MS02: 2023 JULY 12
-    MS51: 2023 AUG 3
+    MS02: 2023 JUL 12
+    MS51, MS52, MS53: 2023 AUG 3
 */
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
@@ -28,7 +28,6 @@ namespace sdds {
         return menu.run();
     }
 
-    // PRIVATE - STATEMENTS PRINTING:
     void LibApp::load() {
         cout << "Loading Data\n";
         ifstream readfile;
@@ -63,11 +62,13 @@ namespace sdds {
         }
     }
 
-    void LibApp::search(int searchModes) { // searchModes: 1 = All, 2 = OnLoan, 3 = Available
-        cout << "Searching for publication\n";
+    int LibApp::search(int searchModes) { // searchModes: 1 = All, 2 = OnLoan, 3 = Available
+        //cout << "Searching for publication\n";
 
         PublicationSelector ps("Select one of the following found matches:");
         int selectedType = m_selectPubType.run();
+        
+        int selectionRef{};
 
         if (selectedType) {
             cout << "Publication Title: ";
@@ -95,47 +96,91 @@ namespace sdds {
                         }
                     }
                     else if (selectedType == 2) {
-                        if (searchModes == 1) { 
-                            ps << m_PPA[i];
-                        }
-                        else if (searchModes == 2) {
-                            if (m_PPA[i]->onLoan()) {
+                        if (m_PPA[i]->type() == 'P') {
+                            if (searchModes == 1) {
                                 ps << m_PPA[i];
                             }
-                        }
-                        else if (searchModes == 3) {
-                            if (!m_PPA[i]->onLoan()) {
-                                ps << m_PPA[i];
+                            else if (searchModes == 2) {
+                                if (m_PPA[i]->onLoan()) {
+                                    ps << m_PPA[i];
+                                }
+                            }
+                            else if (searchModes == 3) {
+                                if (!m_PPA[i]->onLoan()) {
+                                    ps << m_PPA[i];
+                                }
                             }
                         }
                     }
                 }
             }
             if (ps) {
-                int isExit = ps.run();
-                if (isExit == 0) {
+                ps.sort();
+                selectionRef = ps.run();
+                if (selectionRef == 0) {
                     cout << "Aborted!\n";
+                }
+                else {
+                    getPub(selectionRef)->write(cout) << endl;
                 }
             }
             else {
-                cout << "No match found\n";
+                cout << "No matches found!\n";
             }
         }
         else {
             cout << "Aborted!\n";
         }
+        return selectionRef;
     }
-    
+
+
+    /****************************************** DO NOT DISTURB ******************************************/
+
+
     void LibApp::returnPub() {
-        search(2);
-        cout << "Returning publication\n";
-        cout << "Publication returned\n";
-        m_changed = true;
+        cout << "Return publication to the library\n";
+        int rtnRef = search(2);
+        if (rtnRef != 0) {
+            if (confirm("Return Publication?\n")) {
+                /*
+                If the publication is more than 15 days on loan, 
+                a 50 cents per day penalty will be calculated for the number of days exceeding the 15 days.
+                    Following message is printed: Please pay $9.99 penalty for being X days late!
+                    9.99 is replaced with the penalty value and X is replaced with the number of late days.
+                */
+
+                for (int i = 0; i < m_noLoadedPubs; i++) {
+                    if (rtnRef == m_PPA[i]->getRef()) {
+                        m_PPA[i]->set(0);
+                    }
+                }
+                m_changed = true;
+                cout << "Publication returned\n";
+            }
+            else {
+                m_changed = false;
+            }
+        }
     }
+
+
+
+    /****************************************** DO NOT DISTURB ******************************************/
+
 
     // PUBLIC FUNCTIONS:
 
-    // PUBLIC - STATEMENTS PRINTING:
+    Publication* LibApp::getPub(int libRef) {
+        Publication* p{};
+        for (int i = 0; i < m_noLoadedPubs; i++) {
+            if (m_PPA[i]->getRef() == libRef) {
+                p = m_PPA[i];
+            }
+        }
+        return p;
+    }
+
     void LibApp::newPublication() {
         if (m_noLoadedPubs == SDDS_LIBRARY_CAPACITY) {
             cout << "Library is at its maximum capacity!\n";
@@ -145,11 +190,11 @@ namespace sdds {
             int selectedType = m_selectPubType.run();
             Publication* tempPub{};
             if (selectedType == 1) {
-                tempPub = new Book; // *m_PPA
+                tempPub = new Book;
                 tempPub->read(cin);
             }
             else if (selectedType == 2) {
-                tempPub = new Publication; // *m_PPA
+                tempPub = new Publication;
                 tempPub->read(cin);
             }
             if (cin) {
@@ -181,31 +226,44 @@ namespace sdds {
         }
     }
     void LibApp::removePublication() {
-        cout << "Removing publication from library\n";
-        search(1);
-        //PublicationSelector pubSelector{};
-        //int selectedPub_libRef = pubSelector.run();
-        if (confirm("Remove this publication from the library?\n")) {
-            // Set the library reference of the selected publication to 0 (zero)
-            //for (int i = 0; i < m_noLoadedPubs; i++) {
-
-            //}
-            m_changed = true;
-            cout << "Publication removed\n";
-        }
-        else {
-            m_changed = false;
+        cout << "Removing publication from the library\n";
+        int rtnRef = search(1);
+        if (rtnRef != 0) {
+            if (confirm("Remove this publication from the library?\n")) {
+                for (int i = 0; i < m_noLoadedPubs; i++) {
+                    if (rtnRef == m_PPA[i]->getRef()) {
+                        // cout << "rtnRef: " << rtnRef << " | " << "getRef: " << m_PPA[i]->getRef() << endl;
+                        m_PPA[i]->setRef(0);
+                        // cout << "After setRef - m_PPA ref: " << m_PPA[i]->getRef() << endl;
+                    }
+                }
+                m_changed = true;
+                cout << "Publication removed\n";
+            }
+            else {
+                m_changed = false;
+            }
         }
     }
 
     void LibApp::checkOutPub() {
-        search(3);
-        if (confirm("Check out publication?\n")) {
-            m_changed = true;
-            cout << "Publication checked out\n";
-        }
-        else {
-            m_changed = false;
+        cout << "Checkout publication from the library\n";
+        int rtnRef = search(3);
+        if (rtnRef != 0) {
+            if (confirm("Check out publication?\n")) {
+                // cout << "Input: " << getValidMembership() << endl;
+                int memberID = getValidMembership();
+                for (int i = 0; i < m_noLoadedPubs; i++) {
+                    if (rtnRef == m_PPA[i]->getRef()) {
+                        m_PPA[i]->set(memberID);
+                    }
+                }
+                m_changed = true;
+                cout << "Publication checked out\n";
+            }
+            else {
+                m_changed = false;
+            }
         }
     }
 

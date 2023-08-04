@@ -8,8 +8,8 @@
     NEE
 
     I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
-    MS02: 2023 JULY 12
-    MS51: 2023 AUG 3
+    MS02            : 2023 JUL 12
+    MS51, MS52, MS53: 2023 AUG 3
 */
 #ifndef SDDS_LIBAPP_H
 #define SDDS_LIBAPP_H
@@ -32,10 +32,12 @@ namespace sdds {
         bool confirm(const char* message);
         void load();
         void save();   
-        void search(int searchModes);
+        int search(int searchModes);
         void returnPub();  
 
     public:
+        Publication* getPub(int libRef);                // return the address of a Publication object in the PPA that has the library reference number matching the "libRef" argument
+
         void newPublication();
         void removePublication();
         void checkOutPub();

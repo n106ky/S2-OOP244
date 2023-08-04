@@ -1,5 +1,5 @@
 /*
-    OOP244 MS1
+    OOP244 Milestone
 
     KA YING, CHAN #123231227
     kchan151@myseneca.ca
@@ -8,9 +8,8 @@
     NEE
 
     I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
-    2023 JULY 9
-
-    MODIFIED for MS3: 2023 JULY 19
+    MS01			: 2023 JUL 9
+    MS03            : 2023 JUL 19
 */
 #ifndef SDDS_DATE_H_
 #define SDDS_DATE_H_

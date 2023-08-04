@@ -1,15 +1,15 @@
 /*
-	OOP244 MS1
+	OOP244 Milestone
 
-	KA YING, CHAN
-	123231227
+	KA YING, CHAN #123231227
 	kchan151@myseneca.ca
 
 	MOHAMMAD SHAMAS
 	NEE
 
 	I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
-	2023 JULY 9
+	MS01			: 2023 JUL 9
+	MS51, MS52, MS53: 2023 AUG 3
 */
 #ifndef SDDS_UTILS_H_
 #define SDDS_UTILS_H_
@@ -17,5 +17,8 @@
 namespace sdds {
 	// FOR MENU:
 	int getValidSelect(int min, int max);
+
+	// FOR LIBAPP:
+	int getValidMembership();
 }
-#endif // SDDS_UTILS_H__
+#endif // SDDS_UTILS_H_
