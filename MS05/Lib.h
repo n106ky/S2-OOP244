@@ -1,14 +1,15 @@
 /*
-    OOP244 MS3
+	OOP244 Milestone
 
-    KA YING, CHAN #123231227
-    kchan151@myseneca.ca
+	KA YING, CHAN #123231227
+	kchan151@myseneca.ca
 
-    MOHAMMAD SHAMAS
-    NEE
+	MOHAMMAD SHAMAS
+	NEE
 
-    I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
-    COMPLETED: 2023 JULY 21
+	I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
+	MS03: 2023 JULY 21
+	MS05: 2023 AUG 4
 */
 #ifndef SDDS_LIB_H_
 #define SDDS_LIB_H_
@@ -19,6 +20,6 @@ namespace sdds {
     const int SDDS_TITLE_WIDTH = 30;            // The width in which the title of a publication should be printed on the console
     const int SDDS_AUTHOR_WIDTH = 15;           // The width in which the author name of a book should be printed on the console
     const int SDDS_SHELF_ID_LEN = 4;            // The width in which the shelf id of a publication should be printed on the console
-    const int SDDS_LIBRARY_CAPACITY = 5000;     // Maximum number of publications the library can hold.
+    const int SDDS_LIBRARY_CAPACITY = 333;      // Maximum number of publications the library can hold. Changed in MS5-5
 }
 #endif // !SDDS_LIB_H_

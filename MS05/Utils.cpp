@@ -37,8 +37,8 @@ namespace sdds {
 	int getValidMembership() {
 		int input;
 		bool isValid = false;
+		cout << "Enter Membership number: ";
 		while (isValid == false) {
-			cout << "Enter Membership number: ";
 			cin >> input;
 			if (input < 10000 || input > 99999) {
 				cout << "Invalid membership number, try again: ";

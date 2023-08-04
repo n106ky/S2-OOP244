@@ -10,6 +10,7 @@
 	I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
 	MS03: 2023 JULY 29
 	MS51: 2023 AUG 3
+	MS54: 2023 AUG 4
 */
 #define _CRT_SECURE_NO_WARNINGS
 // #include <ios>
@@ -106,20 +107,20 @@ namespace sdds {
 		char temp_shelfId[SDDS_SHELF_ID_LEN + 1]{};
 		int temp_membership = 0;
 		int temp_libRef = -1;
-		Date temp_date;
+		Date temp_date{};
 		setToDefault();
 		if (conIO(in)) {
 			cout << "Shelf No: ";
-			in >> temp_shelfId; // read the shelf number up to its limit
+			in >> temp_shelfId;				// read the shelf number up to its limit
 			if (strlen(temp_shelfId) != SDDS_SHELF_ID_LEN) {
-				// Manually set the 'is' object to a fail state
-				// in.clear(); // To clear (reset) any previous error flags
-				in.setstate(ios::failbit);
+				// in.clear();				// To clear (reset) any previous error flags
+				in.setstate(ios::failbit);	// Manually set the 'is' object to a fail state
 			}
 			cout << "Title: ";
-			in.ignore();
-			in.getline(temp_title, '\n');
+			in.ignore();					// Clear any remaining characters from the previous input
+			in.getline(temp_title, 255 + 1, '\n');
 			cout << "Date: ";
+			//in.ignore();
 			in >> temp_date;
 		}
 		else {
@@ -128,7 +129,7 @@ namespace sdds {
 			in.getline(temp_shelfId, SDDS_SHELF_ID_LEN + 1, '\t');
 			in.getline(temp_title, 255 + 1, '\t');
 			in >> temp_membership;
-			in.ignore(); // in.ignore(100, '\t');
+			in.ignore();
 			in >> temp_date;
 		}
 		if (!temp_date) { // Not correct: temp_date.operator bool()

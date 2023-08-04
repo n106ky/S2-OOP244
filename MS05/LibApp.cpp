@@ -8,8 +8,9 @@
     NEE
 
     I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
-    MS02: 2023 JUL 12
+    MS02            : 2023 JUL 12
     MS51, MS52, MS53: 2023 AUG 3
+    MS56            : 2023 AUG 4
 */
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
@@ -185,40 +186,45 @@ namespace sdds {
             cout << "Adding new publication to the library\n";
             int selectedType = m_selectPubType.run();
             Publication* tempPub{};
-            if (selectedType == 1) {
-                tempPub = new Book;
-                tempPub->read(cin);
-            }
-            else if (selectedType == 2) {
-                tempPub = new Publication;
-                tempPub->read(cin);
-            }
-            if (cin) {
-                if (confirm("Add this publication to the library?\n")) {
-                    if (tempPub) {
-                        m_LLRN++;
-                        tempPub->setRef(m_LLRN);
-                        m_PPA[m_noLoadedPubs] = tempPub;
-                        m_noLoadedPubs++;
-                        m_changed = true;
-                        cout << "Publication added\n";
+            if (selectedType){
+                if (selectedType == 1) {
+                    tempPub = new Book;
+                    tempPub->read(cin);
+                }
+                else if (selectedType == 2) {
+                    tempPub = new Publication;
+                    tempPub->read(cin);
+                }
+                if (cin) {
+                    if (confirm("Add this publication to the library?\n")) {
+                        if (tempPub) {
+                            m_LLRN++;
+                            tempPub->setRef(m_LLRN);
+                            m_PPA[m_noLoadedPubs] = tempPub;
+                            m_noLoadedPubs++;
+                            m_changed = true;
+                            cout << "Publication added\n";
+                        }
+                        else {
+                            m_changed = false;
+                            cout << "Failed to add publication!\n";
+                            delete m_PPA[m_noLoadedPubs];
+                        }
                     }
                     else {
                         m_changed = false;
-                        cout << "Failed to add publication!\n";
-                        delete m_PPA[m_noLoadedPubs];
+                        cout << "Aborted!\n";
                     }
                 }
                 else {
-                    m_changed = false;
+                    cin.clear();
+                    cin.ignore(1000, '\n');
                     cout << "Aborted!\n";
                 }
             }
             else {
-                cin.clear();
-                cin.ignore(1000, '\n');
                 cout << "Aborted!\n";
-            }
+            }  
         }
     }
     void LibApp::removePublication() {
